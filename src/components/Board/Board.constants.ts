@@ -1,5 +1,4 @@
-export const COLUMN_IDS = [...'ABCDEFGH'];
-export const ROW_IDS = [...'87654321'];
+import { COLUMN_IDS, ROW_IDS } from './Square';
 
 export const SQUARE_IDS = COLUMN_IDS.reduce(
   (ids, columnId) => [

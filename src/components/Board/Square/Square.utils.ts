@@ -1,4 +1,4 @@
-import { COLUMN_IDS, ROW_IDS } from "./Board.constants";
+import { COLUMN_IDS, ROW_IDS } from './Square.constants';
 
 export const getSquareColor = (squareId: string) => {
   const [columnId, rowId] = squareId.split('');

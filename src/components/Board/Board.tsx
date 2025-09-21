@@ -1,19 +1,13 @@
 import { SQUARE_IDS } from './Board.constants';
 import styles from './Board.module.css';
-import { getSquareColor } from './Board.utils';
+import Square from './Square';
 
-const Board = () => (
+export default () => (
   <div className={styles.board}>
     {
       SQUARE_IDS.map(squareId => (
-        <div 
-          className={styles[`${getSquareColor(squareId)}-square`]} 
-          key={squareId}
-          id={squareId}
-        />
+        <Square squareId={squareId} />
       ))
     }
   </div>
 );
-
-export default Board;

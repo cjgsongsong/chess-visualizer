@@ -1,14 +1,6 @@
-.black-square {
-  background-color: #36454f;
-}
-
 .board {
   display: grid;
   grid: "auto auto auto auto auto auto auto auto";
   height: 500px;
   width: 500px;
-}
-
-.white-square {
-  background-color: #faf9f6;
 }
