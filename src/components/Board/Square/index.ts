@@ -1,5 +1,5 @@
 import Square from './Square';
-import { COLUMN_IDS, ROW_IDS } from './Square.constants';
+import { FILE_IDS, RANK_IDS } from './Square.constants';
 
-export { COLUMN_IDS, ROW_IDS };
+export { FILE_IDS, RANK_IDS };
 export default Square;

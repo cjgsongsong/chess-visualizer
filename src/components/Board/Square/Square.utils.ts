@@ -1,12 +1,12 @@
-import { COLUMN_IDS, ROW_IDS } from './Square.constants';
+import { FILE_IDS, RANK_IDS } from './Square.constants';
 
 export const getSquareColor = (squareId: string) => {
-  const [columnId, rowId] = squareId.split('');
+  const [fileId, rankId] = squareId.split('');
 
   return (
     (
-      COLUMN_IDS.indexOf(columnId) % 2 
-      ^ ROW_IDS.indexOf(rowId) % 2
+      FILE_IDS.indexOf(fileId) % 2 
+      ^ RANK_IDS.indexOf(rankId) % 2
     )
       ? 'black'
       : 'white'

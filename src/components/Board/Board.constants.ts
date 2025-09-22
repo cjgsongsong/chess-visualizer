@@ -1,9 +1,9 @@
-import { COLUMN_IDS, ROW_IDS } from './Square';
+import { FILE_IDS, RANK_IDS } from './Square';
 
-export const SQUARE_IDS = COLUMN_IDS.reduce(
-  (ids, columnId) => [
+export const SQUARE_IDS = FILE_IDS.reduce(
+  (ids, fileId) => [
     ...ids,
-    ...ROW_IDS.map(rowId => `${columnId}${rowId}`),
+    ...RANK_IDS.map(rankId => `${fileId}${rankId}`),
   ],
   [] as string[],
 );
