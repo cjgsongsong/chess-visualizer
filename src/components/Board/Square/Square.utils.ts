@@ -1,4 +1,4 @@
-import { FILE_IDS, RANK_IDS } from './Square.constants';
+import { FILE_IDS, RANK_IDS } from '../Board.constants';
 
 export const getSquareColor = (squareId: string) => {
   const [fileId, rankId] = squareId.split('');

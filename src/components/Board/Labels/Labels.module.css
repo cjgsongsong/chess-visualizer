@@ -1,0 +1,21 @@
+.file {
+  grid: "auto auto auto auto auto auto auto auto";
+  width: 500px;
+}
+
+.label {
+  align-items: center;
+  display: flex;
+  font-family: sans-serif;
+  justify-content: center;
+  margin: 5px;
+}
+
+.labels {
+  display: grid;
+}
+
+.rank {
+  grid: "auto";
+  width: 25px;
+}
