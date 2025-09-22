@@ -8,7 +8,7 @@ export const getSquareColor = (squareId: string) => {
       FILE_IDS.indexOf(fileId) % 2 
       ^ RANK_IDS.indexOf(rankId) % 2
     )
-      ? 'black'
-      : 'white'
+      ? 'dark'
+      : 'light'
   );
 };
