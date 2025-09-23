@@ -1,20 +1,24 @@
 import { LABEL_TYPES, SQUARE_IDS } from "./Board.constants";
-import styles from "./Board.module.css";
+import "./Board.css";
 import Labels from "./Labels";
 import Square from "./Square";
 
 export default () => (
-  <div className={styles["board-container"]}>
+  <div className="board-container">
     <Labels type={LABEL_TYPES.FILE} />
-    <div className={styles["board-sub-container"]}>
+
+    <div className="board-sub-container">
       <Labels type={LABEL_TYPES.RANK} />
-      <div className={styles.board}>
+
+      <div className="board">
         {SQUARE_IDS.map((squareId) => (
           <Square squareId={squareId} />
         ))}
       </div>
+
       <Labels type={LABEL_TYPES.RANK} />
     </div>
+
     <Labels type={LABEL_TYPES.FILE} />
   </div>
 );
