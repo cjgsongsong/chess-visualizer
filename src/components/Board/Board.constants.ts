@@ -5,6 +5,15 @@ export const LABEL_TYPES = {
   RANK: "rank",
 } as const;
 
+export const PIECE_TYPES = {
+  BISHOP: "bishop",
+  KING: "king",
+  KNIGHT: "knight",
+  PAWN: "pawn",
+  QUEEN: "queen",
+  ROOK: "rook",
+} as const;
+
 export const RANK_IDS = [..."87654321"] as const;
 
 export const SQUARE_IDS = Object.freeze(
