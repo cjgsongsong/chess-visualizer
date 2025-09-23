@@ -1,3 +1,3 @@
 export interface LabelsType {
-  type: string,
-};
+  type: string;
+}

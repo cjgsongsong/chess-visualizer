@@ -1,14 +1,10 @@
-import { FILE_IDS, RANK_IDS } from '../Board.constants';
+import { FILE_IDS, RANK_IDS } from "../Board.constants";
 
 export const getSquareColor = (squareId: string) => {
-  const [fileId, rankId] = squareId.split('');
+  const [fileId, rankId] = squareId.split("");
 
-  return (
-    (
-      FILE_IDS.indexOf(fileId) % 2 
-      ^ RANK_IDS.indexOf(rankId) % 2
-    )
-      ? 'dark'
-      : 'light'
-  );
+  const isFileIdEven = FILE_IDS.indexOf(fileId) % 2;
+  const isRankIdEven = RANK_IDS.indexOf(rankId) % 2;
+
+  return isFileIdEven ^ isRankIdEven ? "dark" : "light";
 };

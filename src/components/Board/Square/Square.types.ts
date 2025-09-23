@@ -1,3 +1,3 @@
 export interface SquareType {
-  squareId: string
-};
+  squareId: string;
+}

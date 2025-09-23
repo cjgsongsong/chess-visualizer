@@ -1,3 +1,3 @@
-import Labels from './Labels';
+import Labels from "./Labels";
 
 export default Labels;
