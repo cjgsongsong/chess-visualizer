@@ -1,6 +1,6 @@
 import { FILE_IDS, RANK_IDS } from "../Board.constants";
 
-export const getSquareColor = (squareId: string) => {
+export const getSquareType = (squareId: string) => {
   const [fileId, rankId] = squareId.split("");
 
   const isFileIdEven = FILE_IDS.indexOf(fileId) % 2;
