@@ -1,4 +1,5 @@
-.file {
+.file-labels {
+  display: grid;
   grid: "auto auto auto auto auto auto auto auto";
   width: 500px;
 }
@@ -11,11 +12,8 @@
   margin: 5px;
 }
 
-.labels {
+.rank-labels {
   display: grid;
-}
-
-.rank {
   grid: "auto";
   width: 25px;
 }
