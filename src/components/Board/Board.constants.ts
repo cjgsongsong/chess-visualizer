@@ -1,13 +1,18 @@
-export const FILE_IDS = [..."ABCDEFGH"];
+export const FILE_IDS = [..."ABCDEFGH"] as const;
 
 export const LABEL_TYPES = {
   FILE: "file",
   RANK: "rank",
-};
+} as const;
 
-export const RANK_IDS = [..."87654321"];
+export const RANK_IDS = [..."87654321"] as const;
 
-export const SQUARE_IDS = FILE_IDS.reduce(
-  (ids, fileId) => [...ids, ...RANK_IDS.map((rankId) => `${fileId}${rankId}`)],
-  [] as string[]
+export const SQUARE_IDS = Object.freeze(
+  FILE_IDS.reduce(
+    (ids, fileId) => [
+      ...ids,
+      ...RANK_IDS.map((rankId) => `${fileId}${rankId}`),
+    ],
+    [] as string[]
+  )
 );
