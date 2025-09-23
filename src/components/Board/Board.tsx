@@ -1,24 +1,29 @@
-import { LABEL_TYPES, SQUARE_IDS } from "./Board.constants";
+import { DEFAULT_CONFIGURATION, LABEL_TYPES } from "./Board.constants";
 import "./Board.css";
+import { getSquareProps } from "./Board.utils";
 import Labels from "./Labels";
 import Square from "./Square";
 
-export default () => (
-  <div className="board-container">
-    <Labels type={LABEL_TYPES.FILE} />
+export default () => {
+  const squareProps = getSquareProps(DEFAULT_CONFIGURATION);
 
-    <div className="board-sub-container">
-      <Labels type={LABEL_TYPES.RANK} />
+  return (
+    <div className="board-container">
+      <Labels type={LABEL_TYPES.FILE} />
 
-      <div className="board">
-        {SQUARE_IDS.map((squareId) => (
-          <Square squareId={squareId} />
-        ))}
+      <div className="board-sub-container">
+        <Labels type={LABEL_TYPES.RANK} />
+
+        <div className="board">
+          {squareProps.map((props) => (
+            <Square {...props} />
+          ))}
+        </div>
+
+        <Labels type={LABEL_TYPES.RANK} />
       </div>
 
-      <Labels type={LABEL_TYPES.RANK} />
+      <Labels type={LABEL_TYPES.FILE} />
     </div>
-
-    <Labels type={LABEL_TYPES.FILE} />
-  </div>
-);
+  );
+};
