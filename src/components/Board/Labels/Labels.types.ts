@@ -1,3 +1,5 @@
+import type { LABEL_TYPES } from "../Board.constants";
+
 export interface LabelsType {
-  type: string;
+  type: (typeof LABEL_TYPES)[keyof typeof LABEL_TYPES];
 }
