@@ -1,6 +1,7 @@
 .board {
   display: grid;
   grid: "auto auto auto auto auto auto auto auto";
+  grid-template-rows: 62.5px 62.5px 62.5px 62.5px 62.5px 62.5px 62.5px 62.5px;
   height: 500px;
   width: 500px;
 }
