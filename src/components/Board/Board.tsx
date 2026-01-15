@@ -4,7 +4,7 @@ import { getSquareProps } from "./Board.utils";
 import Labels from "./Labels";
 import Square from "./Square";
 
-export default () => {
+export default function Board() {
   const squareProps = getSquareProps(DEFAULT_CONFIGURATION);
 
   return (
@@ -26,4 +26,4 @@ export default () => {
       <Labels type={LABEL_TYPES.FILE} />
     </div>
   );
-};
+}

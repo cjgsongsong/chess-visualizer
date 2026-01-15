@@ -3,7 +3,7 @@ import "./Square.css";
 import type { SquareType } from "./Square.types";
 import { getSquareType } from "./Square.utils";
 
-export default ({ squareId, type }: SquareType) => {
+export default function Square({ squareId, type }: SquareType) {
   const squareClass = `${getSquareType(squareId)}-square`;
 
   return (
@@ -11,4 +11,4 @@ export default ({ squareId, type }: SquareType) => {
       <Piece type={type} />
     </div>
   );
-};
+}
