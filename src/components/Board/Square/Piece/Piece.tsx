@@ -3,5 +3,5 @@ import "./Piece.css";
 import type { PieceType } from "./Piece.types";
 
 export default function Piece({ type }: PieceType) {
-  return type ? <div className="piece">{PIECE_SYMBOLS[type]}</div> : <></>;
+  return type ? <span className="piece">{PIECE_SYMBOLS[type]}</span> : <></>;
 }

@@ -1,7 +1,11 @@
-.dark-square {
+.dark {
   background-color: #36454f;
 }
 
-.light-square {
+.light {
   background-color: #faf9f6;
+}
+
+.square {
+  position: relative;
 }
