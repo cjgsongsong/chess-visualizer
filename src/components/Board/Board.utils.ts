@@ -34,6 +34,25 @@ function getPawnTargets({ player, squareId }: GetPawnTargetsType) {
   return targets;
 }
 
+function getRookTargets(squareId: string) {
+  const [fileId, rankId] = squareId.split("");
+  const targets: string[] = [];
+
+  for (let fileIdIndex = 0; fileIdIndex < FILE_IDS.length; fileIdIndex++) {
+    const candidateTarget = `${FILE_IDS[fileIdIndex]}${rankId}`;
+
+    if (squareId !== candidateTarget) targets.push(candidateTarget);
+  }
+
+  for (let rankIdIndex = 0; rankIdIndex < RANK_IDS.length; rankIdIndex++) {
+    const candidateTarget = `${fileId}${RANK_IDS[rankIdIndex]}`;
+
+    if (squareId !== candidateTarget) targets.push(candidateTarget);
+  }
+
+  return targets;
+}
+
 function getTargets(configuration: Configuration) {
   return Object.entries(configuration).reduce((prev, [key, value]) => {
     switch (value) {
@@ -41,6 +60,12 @@ function getTargets(configuration: Configuration) {
         return {
           ...prev,
           [key]: getPawnTargets({ player: PLAYERS.BLACK, squareId: key }),
+        };
+      case PIECE_TYPES.BLACK_ROOK:
+      case PIECE_TYPES.WHITE_ROOK:
+        return {
+          ...prev,
+          [key]: getRookTargets(key),
         };
       case PIECE_TYPES.WHITE_PAWN:
         return {
