@@ -76,7 +76,10 @@ export const DEFAULT_CONFIGURATION = {
 export const DEFAULT_SQUARE_PROPS = RANK_IDS.reduce(
   (ids, rankId) => [
     ...ids,
-    ...FILE_IDS.map((fileId) => ({ squareId: `${fileId}${rankId}` })),
+    ...FILE_IDS.map((fileId) => ({
+      squareId: `${fileId}${rankId}`,
+      targets: [],
+    })),
   ],
   [] as SquareType[],
 );
