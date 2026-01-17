@@ -8,7 +8,7 @@ export default function Square({ squareId, type }: SquareType) {
 
   return (
     <div className={squareClass} key={squareId} id={squareId}>
-      <Piece type={type} />
+      {type && <Piece type={type} />}
     </div>
   );
 }
