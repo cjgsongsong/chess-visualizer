@@ -16,7 +16,7 @@ export const LABEL_TYPES = {
   RANK: "rank",
 } as const;
 
-const PLAYERS = {
+export const PLAYERS = {
   BLACK: "black",
   WHITE: "white",
 } as const;

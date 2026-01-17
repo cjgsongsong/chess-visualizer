@@ -2,9 +2,10 @@ import {
   DEFAULT_SQUARE_PROPS,
   FILE_IDS,
   PIECE_TYPES,
+  PLAYERS,
   RANK_IDS,
 } from "./Board.constants";
-import type { Configuration, Targets } from "./Board.types";
+import type { Configuration, GetPawnTargetsType, Targets } from "./Board.types";
 import type { SquareType } from "./Square";
 
 function getSquareIdIndices(squareId: string) {
@@ -13,9 +14,9 @@ function getSquareIdIndices(squareId: string) {
   return [FILE_IDS.indexOf(fileId), RANK_IDS.indexOf(rankId)];
 }
 
-function getBlackPawnTargets(squareId: string) {
+function getPawnTargets({ player, squareId }: GetPawnTargetsType) {
   const [fileIdIndex, rankIdIndex] = getSquareIdIndices(squareId);
-  const nextRankIdIndex = rankIdIndex + 1;
+  const nextRankIdIndex = rankIdIndex + (player === PLAYERS.BLACK ? 1 : -1);
   const targets: string[] = [];
 
   if (nextRankIdIndex === RANK_IDS.length) return targets;
@@ -37,7 +38,15 @@ function getTargets(configuration: Configuration) {
   return Object.entries(configuration).reduce((prev, [key, value]) => {
     switch (value) {
       case PIECE_TYPES.BLACK_PAWN:
-        return { ...prev, [key]: getBlackPawnTargets(key) };
+        return {
+          ...prev,
+          [key]: getPawnTargets({ player: PLAYERS.BLACK, squareId: key }),
+        };
+      case PIECE_TYPES.WHITE_PAWN:
+        return {
+          ...prev,
+          [key]: getPawnTargets({ player: PLAYERS.WHITE, squareId: key }),
+        };
       default:
         return { ...prev, [key]: [] };
     }
