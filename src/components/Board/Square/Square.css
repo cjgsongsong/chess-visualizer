@@ -1,9 +1,19 @@
 .dark {
-  background-color: #36454f;
+  background: #36454f;
+
+  &.targetable {
+    background:
+      linear-gradient(rgba(0, 0, 255, 0.25), rgba(0, 0, 255, 0.25)), #36454f;
+  }
 }
 
 .light {
-  background-color: #faf9f6;
+  background: #faf9f6;
+
+  &.targetable {
+    background:
+      linear-gradient(rgba(0, 0, 255, 0.25), rgba(0, 0, 255, 0.25)), #faf9f6;
+  }
 }
 
 .square {

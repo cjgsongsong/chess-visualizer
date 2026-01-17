@@ -1,5 +1,9 @@
 import { FILE_IDS, RANK_IDS } from "../Board.constants";
 
+export function addSpace(className: string) {
+  return className ? `${className} ` : "";
+}
+
 export function getSquareType(squareId: string) {
   const [fileId, rankId] = squareId.split("");
 
