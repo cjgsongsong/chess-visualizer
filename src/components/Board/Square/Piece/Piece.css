@@ -1,9 +1,35 @@
+@keyframes shake {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-7deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-7deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
 .piece {
+  align-items: center;
   cursor: pointer;
   display: flex;
   font-size: 45px;
+  height: 100%;
   justify-content: center;
   position: absolute;
   user-select: none;
   width: 100%;
+
+  &:hover {
+    animation: shake 0.5s;
+    animation-iteration-count: infinite;
+    font-size: 55px;
+  }
 }
