@@ -1,6 +1,8 @@
 .piece {
+  cursor: pointer;
   display: flex;
   font-size: 45px;
   height: 100%;
   justify-content: center;
+  user-select: none;
 }
