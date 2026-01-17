@@ -6,7 +6,7 @@ export function getSquareProps(configuration: Configuration) {
     const { squareId } = squareProps;
 
     return configuration[squareId]
-      ? { squareId, type: configuration[squareId] }
+      ? { pieceType: configuration[squareId], squareId }
       : squareProps;
   });
 }
