@@ -6,10 +6,12 @@
 
 .label {
   align-items: center;
+  cursor: default;
   display: flex;
   font-family: sans-serif;
   justify-content: center;
   margin: 5px;
+  user-select: none;
 }
 
 .rank-labels {
