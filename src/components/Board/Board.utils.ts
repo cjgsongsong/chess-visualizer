@@ -22,11 +22,9 @@ function getSquareIdIndices(squareId: string) {
   return [FILE_IDS.indexOf(fileId), RANK_IDS.indexOf(rankId)];
 }
 
-function getBishopTargets(squareId: string) {
-  const [fileIdIndex, rankIdIndex] = getSquareIdIndices(squareId);
-  const targets: string[] = [];
-
+function generateBishopIndexChanges() {
   const indexChanges: number[][] = [];
+
   for (
     let indexChange = -(FILE_IDS.length - 1);
     indexChange < FILE_IDS.length;
@@ -39,26 +37,12 @@ function getBishopTargets(squareId: string) {
     indexChanges.push([indexChange, indexChange]);
   }
 
-  indexChanges.forEach(([fileIdIndexChange, rankIdIndexChange]) => {
-    const nextFileIdIndex = fileIdIndex + fileIdIndexChange;
-    const nextRankIdIndex = rankIdIndex + rankIdIndexChange;
-
-    if (
-      !(
-        nextFileIdIndex < 0 ||
-        nextFileIdIndex >= FILE_IDS.length ||
-        nextRankIdIndex < 0 ||
-        nextRankIdIndex >= RANK_IDS.length
-      )
-    )
-      targets.push(`${FILE_IDS[nextFileIdIndex]}${RANK_IDS[nextRankIdIndex]}`);
-  });
-
-  return targets;
+  return indexChanges;
 }
 
 function generateKingIndexChanges() {
   const indexChanges: number[][] = [];
+
   for (
     let fileIdIndexChange = -1;
     fileIdIndexChange <= 1;
@@ -98,6 +82,8 @@ function getRookTargets(squareId: string) {
 
 function getIndexChanges(pieceType: PieceTypeType) {
   switch (pieceType) {
+    case BASE_PIECE_TYPES.BISHOP:
+      return generateBishopIndexChanges();
     case BASE_PIECE_TYPES.KING:
       return generateKingIndexChanges();
     case BASE_PIECE_TYPES.KNIGHT:
@@ -147,7 +133,10 @@ function getTargets(configuration: Configuration) {
       case PIECE_TYPES.WHITE_BISHOP:
         return {
           ...prev,
-          [key]: getBishopTargets(key),
+          [key]: getTargetsByPieceType({
+            pieceType: BASE_PIECE_TYPES.BISHOP,
+            squareId: key,
+          }),
         };
       case PIECE_TYPES.BLACK_KING:
       case PIECE_TYPES.WHITE_KING:
@@ -179,7 +168,13 @@ function getTargets(configuration: Configuration) {
       case PIECE_TYPES.WHITE_QUEEN:
         return {
           ...prev,
-          [key]: [...getBishopTargets(key), ...getRookTargets(key)],
+          [key]: [
+            ...getTargetsByPieceType({
+              pieceType: BASE_PIECE_TYPES.BISHOP,
+              squareId: key,
+            }),
+            ...getRookTargets(key),
+          ],
         };
       case PIECE_TYPES.BLACK_ROOK:
       case PIECE_TYPES.WHITE_ROOK:
