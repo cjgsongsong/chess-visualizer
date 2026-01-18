@@ -76,9 +76,42 @@ function getKingTargets(squareId: string) {
     if (
       !(
         nextFileIdIndex < 0 ||
-        nextFileIdIndex === FILE_IDS.length ||
+        nextFileIdIndex >= FILE_IDS.length ||
         nextRankIdIndex < 0 ||
-        nextRankIdIndex === RANK_IDS.length
+        nextRankIdIndex >= RANK_IDS.length
+      )
+    )
+      targets.push(`${FILE_IDS[nextFileIdIndex]}${RANK_IDS[nextRankIdIndex]}`);
+  });
+
+  return targets;
+}
+
+function getKnightTargets(squareId: string) {
+  const [fileIdIndex, rankIdIndex] = getSquareIdIndices(squareId);
+  const targets: string[] = [];
+
+  const INDEX_CHANGES = [
+    [-2, 1],
+    [-1, 2],
+    [1, 2],
+    [2, 1],
+    [2, -1],
+    [1, -2],
+    [-1, -2],
+    [-2, -1],
+  ];
+
+  INDEX_CHANGES.forEach(([fileIdIndexChange, rankIdIndexChange]) => {
+    const nextFileIdIndex = fileIdIndex + fileIdIndexChange;
+    const nextRankIdIndex = rankIdIndex + rankIdIndexChange;
+
+    if (
+      !(
+        nextFileIdIndex < 0 ||
+        nextFileIdIndex >= FILE_IDS.length ||
+        nextRankIdIndex < 0 ||
+        nextRankIdIndex >= RANK_IDS.length
       )
     )
       targets.push(`${FILE_IDS[nextFileIdIndex]}${RANK_IDS[nextRankIdIndex]}`);
@@ -92,7 +125,7 @@ function getPawnTargets({ player, squareId }: GetPawnTargetsType) {
   const nextRankIdIndex = rankIdIndex + (player === PLAYERS.BLACK ? 1 : -1);
   const targets: string[] = [];
 
-  if (nextRankIdIndex === RANK_IDS.length) return targets;
+  if (nextRankIdIndex >= RANK_IDS.length) return targets;
 
   const previousFileIdIndex = fileIdIndex - 1;
   const nextFileIdIndex = fileIdIndex + 1;
@@ -140,6 +173,12 @@ function getTargets(configuration: Configuration) {
         return {
           ...prev,
           [key]: getKingTargets(key),
+        };
+      case PIECE_TYPES.BLACK_KNIGHT:
+      case PIECE_TYPES.WHITE_KNIGHT:
+        return {
+          ...prev,
+          [key]: getKnightTargets(key),
         };
       case PIECE_TYPES.BLACK_PAWN:
         return {
