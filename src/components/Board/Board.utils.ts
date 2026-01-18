@@ -87,14 +87,14 @@ function getIndexChanges(pieceType: PieceTypeType) {
       return generateKingIndexChanges();
     case BASE_PIECE_TYPES.KNIGHT:
       return KNIGHT_INDEX_CHANGES;
+    case BASE_PIECE_TYPES.QUEEN:
+      return [...generateBishopIndexChanges(), ...generateRookIndexChanges()];
     case BASE_PIECE_TYPES.ROOK:
       return generateRookIndexChanges();
     case PIECE_TYPES.BLACK_PAWN:
       return BLACK_PAWN_INDEX_CHANGES;
     case PIECE_TYPES.WHITE_PAWN:
       return WHITE_PAWN_INDEX_CHANGES;
-    default:
-      return [] as number[][];
   }
 }
 
@@ -169,16 +169,10 @@ function getTargets(configuration: Configuration) {
       case PIECE_TYPES.WHITE_QUEEN:
         return {
           ...prev,
-          [key]: [
-            ...getTargetsByPieceType({
-              pieceType: BASE_PIECE_TYPES.BISHOP,
-              squareId: key,
-            }),
-            ...getTargetsByPieceType({
-              pieceType: BASE_PIECE_TYPES.ROOK,
-              squareId: key,
-            }),
-          ],
+          [key]: getTargetsByPieceType({
+            pieceType: BASE_PIECE_TYPES.QUEEN,
+            squareId: key,
+          }),
         };
       case PIECE_TYPES.BLACK_ROOK:
       case PIECE_TYPES.WHITE_ROOK:
@@ -197,8 +191,6 @@ function getTargets(configuration: Configuration) {
             squareId: key,
           }),
         };
-      default:
-        return { ...prev, [key]: [] };
     }
   }, {} as Targets);
 }
