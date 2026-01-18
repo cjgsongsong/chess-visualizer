@@ -14,3 +14,8 @@ export const PIECE_SYMBOLS = {
   [PIECE_TYPES.WHITE_QUEEN]: "♕",
   [PIECE_TYPES.WHITE_ROOK]: "♖",
 } as const;
+
+export const TARGET_CLASSES = {
+  PIECE: "targeted",
+  SQUARE: "targetable",
+} as const;
