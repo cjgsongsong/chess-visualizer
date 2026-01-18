@@ -57,10 +57,7 @@ function getBishopTargets(squareId: string) {
   return targets;
 }
 
-function getKingTargets(squareId: string) {
-  const [fileIdIndex, rankIdIndex] = getSquareIdIndices(squareId);
-  const targets: string[] = [];
-
+function generateKingIndexChanges() {
   const indexChanges: number[][] = [];
   for (
     let fileIdIndexChange = -1;
@@ -77,22 +74,7 @@ function getKingTargets(squareId: string) {
     }
   }
 
-  indexChanges.forEach(([fileIdIndexChange, rankIdIndexChange]) => {
-    const nextFileIdIndex = fileIdIndex + fileIdIndexChange;
-    const nextRankIdIndex = rankIdIndex + rankIdIndexChange;
-
-    if (
-      !(
-        nextFileIdIndex < 0 ||
-        nextFileIdIndex >= FILE_IDS.length ||
-        nextRankIdIndex < 0 ||
-        nextRankIdIndex >= RANK_IDS.length
-      )
-    )
-      targets.push(`${FILE_IDS[nextFileIdIndex]}${RANK_IDS[nextRankIdIndex]}`);
-  });
-
-  return targets;
+  return indexChanges;
 }
 
 function getRookTargets(squareId: string) {
@@ -116,6 +98,8 @@ function getRookTargets(squareId: string) {
 
 function getIndexChanges(pieceType: PieceTypeType) {
   switch (pieceType) {
+    case BASE_PIECE_TYPES.KING:
+      return generateKingIndexChanges();
     case BASE_PIECE_TYPES.KNIGHT:
       return KNIGHT_INDEX_CHANGES;
     case PIECE_TYPES.BLACK_PAWN:
@@ -169,7 +153,10 @@ function getTargets(configuration: Configuration) {
       case PIECE_TYPES.WHITE_KING:
         return {
           ...prev,
-          [key]: getKingTargets(key),
+          [key]: getTargetsByPieceType({
+            pieceType: BASE_PIECE_TYPES.KING,
+            squareId: key,
+          }),
         };
       case PIECE_TYPES.BLACK_KNIGHT:
       case PIECE_TYPES.WHITE_KNIGHT:
