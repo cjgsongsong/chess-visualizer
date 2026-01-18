@@ -16,12 +16,6 @@ import type {
 } from "./Board.types";
 import type { SquareType } from "./Square";
 
-function getSquareIdIndices(squareId: string) {
-  const [fileId, rankId] = squareId.split("");
-
-  return [FILE_IDS.indexOf(fileId), RANK_IDS.indexOf(rankId)];
-}
-
 function generateBishopIndexChanges() {
   const indexChanges: number[][] = [];
 
@@ -102,7 +96,9 @@ function getTargetsByPieceType({
   pieceType,
   squareId,
 }: GetTargetsByPieceTypeType) {
-  const [fileIdIndex, rankIdIndex] = getSquareIdIndices(squareId);
+  const [fileId, rankId] = squareId.split("");
+  const fileIdIndex = FILE_IDS.indexOf(fileId);
+  const rankIdIndex = RANK_IDS.indexOf(rankId);
   const targets: string[] = [];
 
   getIndexChanges(pieceType).forEach(
