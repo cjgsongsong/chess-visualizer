@@ -146,6 +146,12 @@ function getTargets(configuration: Configuration) {
           ...prev,
           [key]: getPawnTargets({ player: PLAYERS.BLACK, squareId: key }),
         };
+      case PIECE_TYPES.BLACK_QUEEN:
+      case PIECE_TYPES.WHITE_QUEEN:
+        return {
+          ...prev,
+          [key]: [...getBishopTargets(key), ...getRookTargets(key)],
+        };
       case PIECE_TYPES.BLACK_ROOK:
       case PIECE_TYPES.WHITE_ROOK:
         return {
