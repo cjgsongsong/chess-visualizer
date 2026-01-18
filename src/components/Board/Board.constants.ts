@@ -1,6 +1,6 @@
 import type { SquareType } from "./Square/Square.types";
 
-const BASE_PIECE_TYPES = {
+export const BASE_PIECE_TYPES = {
   BISHOP: "bishop",
   KING: "king",
   KNIGHT: "knight",
@@ -11,6 +11,17 @@ const BASE_PIECE_TYPES = {
 
 export const FILE_IDS = [..."ABCDEFGH"] as const;
 
+export const KNIGHT_INDEX_CHANGES = [
+  [-1, -2],
+  [-1, 2],
+  [-2, -1],
+  [-2, 1],
+  [1, -2],
+  [1, 2],
+  [2, -1],
+  [2, 1],
+];
+
 export const LABEL_TYPES = {
   FILE: "file",
   RANK: "rank",
@@ -20,6 +31,8 @@ export const PLAYERS = {
   BLACK: "black",
   WHITE: "white",
 } as const;
+
+export const RANK_IDS = [..."87654321"] as const;
 
 export const PIECE_TYPES = {
   BLACK_BISHOP: `${PLAYERS.BLACK}-${BASE_PIECE_TYPES.BISHOP}`,
@@ -35,8 +48,6 @@ export const PIECE_TYPES = {
   WHITE_QUEEN: `${PLAYERS.WHITE}-${BASE_PIECE_TYPES.QUEEN}`,
   WHITE_ROOK: `${PLAYERS.WHITE}-${BASE_PIECE_TYPES.ROOK}`,
 } as const;
-
-export const RANK_IDS = [..."87654321"] as const;
 
 export const DEFAULT_CONFIGURATION = {
   A1: PIECE_TYPES.WHITE_ROOK,
