@@ -61,23 +61,22 @@ function generateKingIndexChanges() {
   return indexChanges;
 }
 
-function getRookTargets(squareId: string) {
-  const [fileId, rankId] = squareId.split("");
-  const targets: string[] = [];
+function generateRookIndexChanges() {
+  const indexChanges: number[][] = [];
 
-  for (let fileIdIndex = 0; fileIdIndex < FILE_IDS.length; fileIdIndex++) {
-    const candidateTarget = `${FILE_IDS[fileIdIndex]}${rankId}`;
-
-    if (squareId !== candidateTarget) targets.push(candidateTarget);
+  for (
+    let indexChange = -(FILE_IDS.length - 1);
+    indexChange < FILE_IDS.length;
+    indexChange++
+  ) {
+    if (indexChange === 0 && indexChange === 0) continue;
+    indexChanges.push([-indexChange, 0]);
+    indexChanges.push([0, -indexChange]);
+    indexChanges.push([0, indexChange]);
+    indexChanges.push([indexChange, 0]);
   }
 
-  for (let rankIdIndex = 0; rankIdIndex < RANK_IDS.length; rankIdIndex++) {
-    const candidateTarget = `${fileId}${RANK_IDS[rankIdIndex]}`;
-
-    if (squareId !== candidateTarget) targets.push(candidateTarget);
-  }
-
-  return targets;
+  return indexChanges;
 }
 
 function getIndexChanges(pieceType: PieceTypeType) {
@@ -88,6 +87,8 @@ function getIndexChanges(pieceType: PieceTypeType) {
       return generateKingIndexChanges();
     case BASE_PIECE_TYPES.KNIGHT:
       return KNIGHT_INDEX_CHANGES;
+    case BASE_PIECE_TYPES.ROOK:
+      return generateRookIndexChanges();
     case PIECE_TYPES.BLACK_PAWN:
       return BLACK_PAWN_INDEX_CHANGES;
     case PIECE_TYPES.WHITE_PAWN:
@@ -173,14 +174,20 @@ function getTargets(configuration: Configuration) {
               pieceType: BASE_PIECE_TYPES.BISHOP,
               squareId: key,
             }),
-            ...getRookTargets(key),
+            ...getTargetsByPieceType({
+              pieceType: BASE_PIECE_TYPES.ROOK,
+              squareId: key,
+            }),
           ],
         };
       case PIECE_TYPES.BLACK_ROOK:
       case PIECE_TYPES.WHITE_ROOK:
         return {
           ...prev,
-          [key]: getRookTargets(key),
+          [key]: getTargetsByPieceType({
+            pieceType: BASE_PIECE_TYPES.ROOK,
+            squareId: key,
+          }),
         };
       case PIECE_TYPES.WHITE_PAWN:
         return {
