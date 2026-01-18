@@ -9,6 +9,11 @@ export const BASE_PIECE_TYPES = {
   ROOK: "rook",
 } as const;
 
+export const BLACK_PAWN_INDEX_CHANGES = [
+  [-1, 1],
+  [1, 1],
+];
+
 export const FILE_IDS = [..."ABCDEFGH"] as const;
 
 export const KNIGHT_INDEX_CHANGES = [
@@ -27,12 +32,17 @@ export const LABEL_TYPES = {
   RANK: "rank",
 } as const;
 
-export const PLAYERS = {
+const PLAYERS = {
   BLACK: "black",
   WHITE: "white",
 } as const;
 
 export const RANK_IDS = [..."87654321"] as const;
+
+export const WHITE_PAWN_INDEX_CHANGES = [
+  [-1, -1],
+  [1, -1],
+];
 
 export const PIECE_TYPES = {
   BLACK_BISHOP: `${PLAYERS.BLACK}-${BASE_PIECE_TYPES.BISHOP}`,

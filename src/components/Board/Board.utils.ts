@@ -1,17 +1,17 @@
 import {
   BASE_PIECE_TYPES,
+  BLACK_PAWN_INDEX_CHANGES,
   DEFAULT_SQUARE_PROPS,
   FILE_IDS,
   KNIGHT_INDEX_CHANGES,
   PIECE_TYPES,
-  PLAYERS,
   RANK_IDS,
+  WHITE_PAWN_INDEX_CHANGES,
 } from "./Board.constants";
 import type {
-  BasePieceTypeType,
   Configuration,
-  GetPawnTargetsType,
-  GetTargetsByBasePieceTypeType,
+  GetTargetsByPieceTypeType,
+  PieceTypeType,
   Targets,
 } from "./Board.types";
 import type { SquareType } from "./Square";
@@ -95,26 +95,6 @@ function getKingTargets(squareId: string) {
   return targets;
 }
 
-function getPawnTargets({ player, squareId }: GetPawnTargetsType) {
-  const [fileIdIndex, rankIdIndex] = getSquareIdIndices(squareId);
-  const nextRankIdIndex = rankIdIndex + (player === PLAYERS.BLACK ? 1 : -1);
-  const targets: string[] = [];
-
-  if (nextRankIdIndex >= RANK_IDS.length) return targets;
-
-  const previousFileIdIndex = fileIdIndex - 1;
-  const nextFileIdIndex = fileIdIndex + 1;
-
-  if (previousFileIdIndex >= 0)
-    targets.push(
-      `${FILE_IDS[previousFileIdIndex]}${RANK_IDS[nextRankIdIndex]}`,
-    );
-  if (nextFileIdIndex < FILE_IDS.length)
-    targets.push(`${FILE_IDS[nextFileIdIndex]}${RANK_IDS[nextRankIdIndex]}`);
-
-  return targets;
-}
-
 function getRookTargets(squareId: string) {
   const [fileId, rankId] = squareId.split("");
   const targets: string[] = [];
@@ -134,23 +114,27 @@ function getRookTargets(squareId: string) {
   return targets;
 }
 
-function getIndexChanges(basePieceType: BasePieceTypeType) {
-  switch (basePieceType) {
+function getIndexChanges(pieceType: PieceTypeType) {
+  switch (pieceType) {
     case BASE_PIECE_TYPES.KNIGHT:
       return KNIGHT_INDEX_CHANGES;
+    case PIECE_TYPES.BLACK_PAWN:
+      return BLACK_PAWN_INDEX_CHANGES;
+    case PIECE_TYPES.WHITE_PAWN:
+      return WHITE_PAWN_INDEX_CHANGES;
     default:
       return [] as number[][];
   }
 }
 
-function getTargetsByBasePieceType({
-  basePieceType,
+function getTargetsByPieceType({
+  pieceType,
   squareId,
-}: GetTargetsByBasePieceTypeType) {
+}: GetTargetsByPieceTypeType) {
   const [fileIdIndex, rankIdIndex] = getSquareIdIndices(squareId);
   const targets: string[] = [];
 
-  getIndexChanges(basePieceType).forEach(
+  getIndexChanges(pieceType).forEach(
     ([fileIdIndexChange, rankIdIndexChange]) => {
       const nextFileIdIndex = fileIdIndex + fileIdIndexChange;
       const nextRankIdIndex = rankIdIndex + rankIdIndexChange;
@@ -191,15 +175,18 @@ function getTargets(configuration: Configuration) {
       case PIECE_TYPES.WHITE_KNIGHT:
         return {
           ...prev,
-          [key]: getTargetsByBasePieceType({
-            basePieceType: BASE_PIECE_TYPES.KNIGHT,
+          [key]: getTargetsByPieceType({
+            pieceType: BASE_PIECE_TYPES.KNIGHT,
             squareId: key,
           }),
         };
       case PIECE_TYPES.BLACK_PAWN:
         return {
           ...prev,
-          [key]: getPawnTargets({ player: PLAYERS.BLACK, squareId: key }),
+          [key]: getTargetsByPieceType({
+            pieceType: PIECE_TYPES.BLACK_PAWN,
+            squareId: key,
+          }),
         };
       case PIECE_TYPES.BLACK_QUEEN:
       case PIECE_TYPES.WHITE_QUEEN:
@@ -216,7 +203,10 @@ function getTargets(configuration: Configuration) {
       case PIECE_TYPES.WHITE_PAWN:
         return {
           ...prev,
-          [key]: getPawnTargets({ player: PLAYERS.WHITE, squareId: key }),
+          [key]: getTargetsByPieceType({
+            pieceType: PIECE_TYPES.WHITE_PAWN,
+            squareId: key,
+          }),
         };
       default:
         return { ...prev, [key]: [] };

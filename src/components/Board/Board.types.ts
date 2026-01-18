@@ -1,19 +1,19 @@
-import type { PLAYERS, PIECE_TYPES, BASE_PIECE_TYPES } from "./Board.constants";
+import { BASE_PIECE_TYPES, PIECE_TYPES } from "./Board.constants";
 
-export type BasePieceTypeType =
-  (typeof BASE_PIECE_TYPES)[keyof typeof BASE_PIECE_TYPES];
+export type PieceTypeType =
+  | Exclude<
+      (typeof BASE_PIECE_TYPES)[keyof typeof BASE_PIECE_TYPES],
+      typeof BASE_PIECE_TYPES.PAWN
+    >
+  | typeof PIECE_TYPES.BLACK_PAWN
+  | typeof PIECE_TYPES.WHITE_PAWN;
 
 export interface Configuration {
   [squareId: string]: (typeof PIECE_TYPES)[keyof typeof PIECE_TYPES];
 }
 
-export interface GetTargetsByBasePieceTypeType {
-  basePieceType: BasePieceTypeType;
-  squareId: string;
-}
-
-export interface GetPawnTargetsType {
-  player: (typeof PLAYERS)[keyof typeof PLAYERS];
+export interface GetTargetsByPieceTypeType {
+  pieceType: PieceTypeType;
   squareId: string;
 }
 
